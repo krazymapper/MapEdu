@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ajouter une école en besoin sur EduMap Bénin">
+  <meta name="keywords" content="éducation, Bénin, écoles, soutien scolaire, infrastructure éducative">
+  <meta name="author" content="EduMap Bénin">
+  <meta name="theme-color" content="#2563EB">
+  
+  <title>Ajouter une École - EduMap Bénin</title>
+  
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  
+  <style>
+    .leaflet-container { 
+      height: 300px;
+      width: 100%;
+      z-index: 1;
+    }
+    
+    .image-upload-preview {
+      max-width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+
+    .needs-container .error {
+      margin-top: 0.5rem;
+      color: #EF4444;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Navbar -->
+  <header class="bg-white shadow-sm fixed w-full top-0 z-50">
+    <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <img src="https://via.placeholder.com/40" alt="Logo EduMap" class="h-10 w-10 rounded-full hover:scale-105 transition-transform">
+        <span class="text-blue-600 font-bold text-xl">EduMap</span>
+      </div>
+      
+      <!-- Menu desktop -->
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="edu.html#carte" class="hover:text-blue-600 transition-colors">Carte</a>
+        <a href="about.html" class="hover:text-blue-600 transition-colors">À propos</a>
+        <a href="ajouter.html" class="text-blue-600 font-semibold">Ajouter</a>
+        <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105">
+          Connexion
+        </button>
+      </div>
+
+      <!-- Menu mobile burger -->
+      <button class="md:hidden p-2" id="mobileMenuButton" aria-label="Menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+    
+    <!-- Mobile menu panel -->
+    <div class="md:hidden hidden bg-white border-t" id="mobileMenu">
+      <div class="px-4 py-3 space-y-4">
+        <a href="edu.html#carte" class="block hover:text-blue-600 transition-colors">Carte</a>
+        <a href="about.html" class="block hover:text-blue-600 transition-colors">À propos</a>
+        <a href="ajouter.html" class="block text-blue-600 font-semibold">Ajouter</a>
+        <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+          Connexion
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+          <h1 class="text-3xl font-bold text-gray-900 mb-2">Ajouter une École</h1>
+          <p class="text-gray-600 mb-8">Aidez-nous à identifier les écoles qui ont besoin de soutien.</p>
+
+          <form id="addSchoolForm" class="space-y-6">
+            <!-- Informations de base -->
+            <div class="bg-gray-50 p-6 rounded-lg space-y-4">
+              <h2 class="text-xl font-semibold text-gray-800 mb-4">Informations de base</h2>
+              
+              <div>
+                <label for="schoolName" class="block text-sm font-medium text-gray-700 mb-1">
+                  Nom de l'école <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="schoolName"
+                  name="schoolName"
+                  required
+                  class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Ex: École Primaire Publique de..."
+                >
+              </div>
+
+              <!-- Image upload section -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  Photo de l'école
+                </label>
+                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+                  <div class="space-y-1 text-center">
+                    <img id="imagePreview" class="image-upload-preview mx-auto hidden" src="" alt="Aperçu de l'image">
+                    <div class="flex text-sm text-gray-600">
+                      <label for="schoolImage" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                        <span>Télécharger une photo</span>
+                        <input id="schoolImage" name="schoolImage" type="file" class="sr-only" accept="image/*">
+                      </label>
+                      <p class="pl-1">ou glisser-déposer</p>
+                    </div>
+                    <p class="text-xs text-gray-500">PNG, JPG, GIF jusqu'à 5MB</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="region" class="block text-sm font-medium text-gray-700 mb-1">
+                    Région <span class="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="region"
+                    name="region"
+                    required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    <option value="">Sélectionner une région</option>
+                    <option value="nord">Nord</option>
+                    <option value="sud">Sud</option>
+                    <option value="centre">Centre</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="commune" class="block text-sm font-medium text-gray-700 mb-1">
+                    Commune <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="commune"
+                    name="commune"
+                    required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Nom de la commune"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Localisation -->
+            <div class="bg-gray-50 p-6 rounded-lg space-y-4">
+              <h2 class="text-xl font-semibold text-gray-800 mb-4">Localisation</h2>
+              <p class="text-sm text-gray-600 mb-4">Cliquez sur la carte pour sélectionner l'emplacement de l'école</p>
+              
+              <div id="schoolMap" class="rounded-lg overflow-hidden border"></div>
+              
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="latitude" class="block text-sm font-medium text-gray-700 mb-1">
+                    Latitude <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="latitude"
+                    name="latitude"
+                    required
+                    readonly
+                    class="w-full px-4 py-2 border rounded-lg bg-gray-100"
+                  >
+                </div>
+                <div>
+                  <label for="longitude" class="block text-sm font-medium text-gray-700 mb-1">
+                    Longitude <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="longitude"
+                    name="longitude"
+                    required
+                    readonly
+                    class="w-full px-4 py-2 border rounded-lg bg-gray-100"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Informations détaillées -->
+            <div class="bg-gray-50 p-6 rounded-lg space-y-4">
+              <h2 class="text-xl font-semibold text-gray-800 mb-4">Informations détaillées</h2>
+              
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="studentCount" class="block text-sm font-medium text-gray-700 mb-1">
+                    Effectif des apprenants <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="studentCount"
+                    name="studentCount"
+                    required
+                    min="1"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Nombre total d'élèves"
+                  >
+                </div>
+
+                <div>
+                  <label for="classroomCount" class="block text-sm font-medium text-gray-700 mb-1">
+                    Nombre de salles de classe <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="classroomCount"
+                    name="classroomCount"
+                    required
+                    min="1"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Nombre de salles"
+                  >
+                </div>
+              </div>
+
+              <div class="needs-container">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  Besoins principaux <span class="text-red-500">*</span>
+                </label>
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <input type="checkbox" id="need_materiel" name="needs[]" value="materiel" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="need_materiel" class="ml-2 text-sm text-gray-700">Matériel scolaire</label>
+                  </div>
+                  <div class="flex items-center">
+                    <input type="checkbox" id="need_renovation" name="needs[]" value="renovation" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="need_renovation" class="ml-2 text-sm text-gray-700">Rénovation des salles</label>
+                  </div>
+                  <div class="flex items-center">
+                    <input type="checkbox" id="need_enseignants" name="needs[]" value="enseignants" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="need_enseignants" class="ml-2 text-sm text-gray-700">Besoin d'enseignants</label>
+                  </div>
+                  <div class="flex items-center">
+                    <input type="checkbox" id="need_sanitaire" name="needs[]" value="sanitaire" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="need_sanitaire" class="ml-2 text-sm text-gray-700">Installations sanitaires</label>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">
+                  Description détaillée des besoins <span class="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="description"
+                  name="description"
+                  required
+                  rows="4"
+                  class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Décrivez en détail les besoins de l'école..."
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="bg-gray-50 p-6 rounded-lg space-y-4">
+              <h2 class="text-xl font-semibold text-gray-800 mb-4">Informations de contact</h2>
+              
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="contactName" class="block text-sm font-medium text-gray-700 mb-1">
+                    Nom du contact <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="contactName"
+                    name="contactName"
+                    required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Votre nom complet"
+                  >
+                </div>
+
+                <div>
+                  <label for="contactRole" class="block text-sm font-medium text-gray-700 mb-1">
+                    Rôle / Fonction <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="contactRole"
+                    name="contactRole"
+                    required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Ex: Directeur, Enseignant..."
+                  >
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="contactEmail" class="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    name="contactEmail"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="votre@email.com"
+                  >
+                </div>
+
+                <div>
+                  <label for="contactPhone" class="block text-sm font-medium text-gray-700 mb-1">
+                    Téléphone <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="contactPhone"
+                    name="contactPhone"
+                    required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Ex: +229 XX XX XX XX"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Donation Section -->
+            <div class="bg-gray-50 p-6 rounded-lg space-y-4">
+              <h2 class="text-xl font-semibold text-gray-800 mb-4">Faire un don</h2>
+              <p class="text-gray-600 mb-4">Votre don aidera à soutenir cette école et d'autres écoles dans le besoin.</p>
+              
+              <div class="flex flex-col space-y-4">
+                <div class="flex items-center space-x-4">
+                  <input
+                    type="radio"
+                    id="donation_0"
+                    name="donation_amount"
+                    value="0"
+                    checked
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  >
+                  <label for="donation_0" class="text-sm text-gray-700">Pas de don pour le moment</label>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                  <input
+                    type="radio"
+                    id="donation_10"
+                    name="donation_amount"
+                    value="10"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  >
+                  <label for="donation_10" class="text-sm text-gray-700">10€ - Fournitures scolaires de base</label>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                  <input
+                    type="radio"
+                    id="donation_25"
+                    name="donation_amount"
+                    value="25"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  >
+                  <label for="donation_25" class="text-sm text-gray-700">25€ - Kit scolaire complet</label>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                  <input
+                    type="radio"
+                    id="donation_50"
+                    name="donation_amount"
+                    value="50"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  >
+                  <label for="donation_50" class="text-sm text-gray-700">50€ - Matériel pédagogique</label>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                  <input
+                    type="radio"
+                    id="donation_custom"
+                    name="donation_amount"
+                    value="custom"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  >
+                  <div class="flex items-center">
+                    <label for="custom_amount" class="text-sm text-gray-700 mr-2">Montant personnalisé:</label>
+                    <input
+                      type="number"
+                      id="custom_amount"
+                      name="custom_amount"
+                      min="1"
+                      step="1"
+                      class="w-24 px-2 py-1 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="€"
+                      disabled
+                    >
+                  </div>
+                </div>
+
+                <div id="paypal-button-container" class="hidden mt-4"></div>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <input
+                type="checkbox"
+                id="consent"
+                name="consent"
+                required
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              >
+              <label for="consent" class="ml-2 text-sm text-gray-700">
+                J'accepte que ces informations soient publiées sur la plateforme <span class="text-red-500">*</span>
+              </label>
+            </div>
+
+            <div class="flex justify-end space-x-4">
+              <button
+                type="button"
+                onclick="window.location.href='edu.html'"
+                class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Annuler
+              </button>
+              <button
+                type="submit"
+                class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >
+                Soumettre
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <h4 class="text-lg font-bold mb-4">EduMap Bénin</h4>
+          <p class="text-gray-400">Plateforme citoyenne pour l'éducation</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Liens utiles</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="edu.html" class="hover:text-white transition-colors">Carte</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">À propos</a></li>
+            <li><a href="ajouter.html" class="hover:text-white transition-colors">Ajouter</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Légal</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Mentions légales</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">CGU</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Réseaux</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="hover:text-blue-400 transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR"></script>
+  <script src="js/addSchool.js"></script>
+</body>
+</html> 

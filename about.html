@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="À propos d'EduMap Bénin - Notre mission et notre vision pour l'éducation">
+  <meta name="keywords" content="éducation, Bénin, écoles, soutien scolaire, infrastructure éducative">
+  <meta name="author" content="EduMap Bénin">
+  <meta name="theme-color" content="#2563EB">
+  
+  <title>À propos - EduMap Bénin</title>
+  
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            'fade-in-up': 'fade-in-up 0.5s ease-out',
+            'fade-in': 'fade-in 0.5s ease-out'
+          },
+          keyframes: {
+            'fade-in-up': {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            'fade-in': {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .bg-pattern {
+      background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+    }
+    
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+    
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Navbar -->
+  <header class="bg-white shadow-sm fixed w-full top-0 z-50">
+    <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <img src="https://via.placeholder.com/40" alt="Logo EduMap" class="h-10 w-10 rounded-full hover-scale">
+        <span class="text-blue-600 font-bold text-xl">EduMap</span>
+      </div>
+      
+      <!-- Menu desktop -->
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="edu.html#carte" class="hover:text-blue-600 transition-colors">Carte</a>
+        <a href="about.html" class="text-blue-600 font-semibold">À propos</a>
+        <a href="#" class="hover:text-blue-600 transition-colors">Contact</a>
+        <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Connexion
+        </button>
+      </div>
+
+      <!-- Menu mobile burger -->
+      <button class="md:hidden p-2" id="mobileMenuButton" aria-label="Menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+    
+    <!-- Mobile menu panel -->
+    <div class="md:hidden hidden bg-white border-t" id="mobileMenu">
+      <div class="px-4 py-3 space-y-4">
+        <a href="edu.html#carte" class="block hover:text-blue-600 transition-colors">Carte</a>
+        <a href="about.html" class="block text-blue-600 font-semibold">À propos</a>
+        <a href="#" class="block hover:text-blue-600 transition-colors">Contact</a>
+        <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+          Connexion
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-pattern min-h-[60vh] flex items-center pt-32 pb-20 px-4">
+    <div class="container mx-auto max-w-4xl text-center animate-fade-in">
+      <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-6">Notre Histoire</span>
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 text-gray-900 leading-tight">
+        Notre Mission : <span class="text-blue-600">Transformer</span> l'Éducation au Bénin
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed max-w-3xl mx-auto">
+        EduMap Bénin est une plateforme citoyenne dédiée à l'amélioration de l'infrastructure éducative et à la promotion de l'égalité des chances.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="edu.html#carte" class="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-blue-700 transition-all transform hover:scale-105">
+          Explorer la Carte
+        </a>
+        <a href="#contact" class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg hover:bg-blue-600 hover:text-white transition-all transform hover:scale-105">
+          Nous Contacter
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission et Vision -->
+  <section class="container mx-auto px-4 py-24">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="animate-fade-in-up">
+        <h2 class="text-3xl font-bold mb-6 text-blue-600">Notre Vision</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+          Nous croyons que chaque enfant au Bénin mérite un accès à une éducation de qualité, indépendamment de sa situation géographique ou socio-économique.
+        </p>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Notre objectif est de créer une communauté active qui collabore pour identifier, signaler et résoudre les défis infrastructurels dans les écoles béninoises.
+        </p>
+        <div class="mt-8 flex gap-4">
+          <div class="bg-blue-100 rounded-lg p-4 flex-1 text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-2">200+</div>
+            <div class="text-gray-600">Écoles Aidées</div>
+          </div>
+          <div class="bg-green-100 rounded-lg p-4 flex-1 text-center">
+            <div class="text-3xl font-bold text-green-600 mb-2">5000+</div>
+            <div class="text-gray-600">Élèves Impactés</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-8 animate-fade-in-up" style="animation-delay: 0.2s">
+        <h3 class="text-2xl font-bold mb-8 text-gray-900">Nos Valeurs</h3>
+        <ul class="space-y-6">
+          <li class="flex items-center p-4 bg-blue-50 rounded-lg hover-scale">
+            <svg class="w-8 h-8 text-green-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+              <h4 class="font-semibold mb-1">Transparence</h4>
+              <p class="text-sm text-gray-600">Nous agissons avec intégrité et clarté dans toutes nos actions</p>
+            </div>
+          </li>
+          <li class="flex items-center p-4 bg-blue-50 rounded-lg hover-scale">
+            <svg class="w-8 h-8 text-blue-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <div>
+              <h4 class="font-semibold mb-1">Collaboration Communautaire</h4>
+              <p class="text-sm text-gray-600">Ensemble, nous créons un impact durable</p>
+            </div>
+          </li>
+          <li class="flex items-center p-4 bg-blue-50 rounded-lg hover-scale">
+            <svg class="w-8 h-8 text-orange-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            <div>
+              <h4 class="font-semibold mb-1">Innovation Sociale</h4>
+              <p class="text-sm text-gray-600">Des solutions créatives pour des défis complexes</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre Histoire -->
+  <section class="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center mb-16 text-gray-900">Notre Histoire</h2>
+      <div class="max-w-4xl mx-auto space-y-8">
+        <div class="bg-white rounded-xl shadow-md p-8 hover-scale">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-blue-600 font-bold">2022</span>
+            </div>
+            <h3 class="text-xl font-bold text-blue-600">La Naissance d'une Idée</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            Tout a commencé lors d'une discussion entre des étudiants et des enseignants préoccupés par les inégalités dans le système éducatif béninois.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-8 hover-scale">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-green-600 font-bold">2023</span>
+            </div>
+            <h3 class="text-xl font-bold text-green-600">Première Plateforme</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            Développement de la première version de la plateforme EduMap, permettant aux citoyens de signaler les besoins des écoles.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-8 hover-scale">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-orange-600 font-bold">2024</span>
+            </div>
+            <h3 class="text-xl font-bold text-orange-600">Croissance et Impact</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            Première campagne nationale de sensibilisation et partenariat avec des ONG locales pour amplifier notre impact.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Équipe -->
+  <section class="container mx-auto px-4 py-24">
+    <h2 class="text-4xl font-bold text-center mb-16 text-gray-900">Notre Équipe</h2>
+    <div class="grid md:grid-cols-3 gap-12">
+      <div class="bg-white rounded-xl shadow-lg p-8 text-center hover-scale">
+        <div class="relative mb-6">
+          <div class="w-32 h-32 rounded-full bg-blue-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+          <img src="https://via.placeholder.com/150" alt="Marie Dupont" class="w-32 h-32 rounded-full mx-auto relative">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Marie Dupont</h3>
+        <p class="text-blue-600 font-medium mb-4">Fondatrice & Directrice</p>
+        <p class="text-gray-600 text-sm">
+          Passionnée par l'éducation et le développement social
+        </p>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-8 text-center hover-scale">
+        <div class="relative mb-6">
+          <div class="w-32 h-32 rounded-full bg-green-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+          <img src="https://via.placeholder.com/150" alt="Jean Kouassi" class="w-32 h-32 rounded-full mx-auto relative">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Jean Kouassi</h3>
+        <p class="text-green-600 font-medium mb-4">Directeur Technique</p>
+        <p class="text-gray-600 text-sm">
+          Expert en développement web et cartographie
+        </p>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-8 text-center hover-scale">
+        <div class="relative mb-6">
+          <div class="w-32 h-32 rounded-full bg-orange-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+          <img src="https://via.placeholder.com/150" alt="Aïssata Traoré" class="w-32 h-32 rounded-full mx-auto relative">
+        </div>
+        <h3 class="text-xl font-bold mb-2">Aïssata Traoré</h3>
+        <p class="text-orange-600 font-medium mb-4">Responsable des Partenariats</p>
+        <p class="text-gray-600 text-sm">
+          Spécialiste en relations communautaires
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-16">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <img src="https://via.placeholder.com/40" alt="Logo EduMap" class="h-10 w-10 rounded-full">
+            <span class="text-white font-bold text-xl">EduMap</span>
+          </div>
+          <p class="text-gray-400">Plateforme citoyenne pour l'éducation</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-6">Liens utiles</h4>
+          <ul class="space-y-4 text-gray-400">
+            <li><a href="edu.html" class="hover:text-white transition-colors">Carte</a></li>
+            <li><a href="about.html" class="hover:text-white transition-colors">À propos</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-6">Légal</h4>
+          <ul class="space-y-4 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Mentions légales</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">CGU</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-6">Réseaux</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="hover:text-blue-400 transition-colors" aria-label="Twitter">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+              </svg>
+            </a>
+            <a href="#" class="hover:text-blue-600 transition-colors" aria-label="LinkedIn">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href="#" class="hover:text-pink-600 transition-colors" aria-label="Instagram">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+        <p>&copy; 2024 EduMap Bénin. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Mobile menu functionality
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

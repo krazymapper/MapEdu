@@ -1,0 +1,14 @@
+{
+  "name": "edumap-benin",
+  "version": "1.0.0",
+  "description": "Platform for tracking and supporting schools in need in Benin",
+  "main": "dist/donation.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "serve": "python -m http.server 8000"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+} 
